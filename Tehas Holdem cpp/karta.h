@@ -23,7 +23,16 @@ struct Karta {
     }
 
     void display() const {
-        cout << toString() << " ";
+        // Цветной вывод: красный для червей/бубен, белый для треф/пик
+        string card = toString();
+        string colorStart;
+        string colorReset = "\033[0m";
+        if (mast == CHERVI || mast == BUBNI) {
+            colorStart = "\033[31m"; // красный
+        } else {
+            colorStart = "\033[37m"; // белый/серый
+        }
+        cout << colorStart << card << colorReset << " ";
     }
 };
 

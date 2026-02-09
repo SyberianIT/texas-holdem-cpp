@@ -31,6 +31,84 @@ string poluchitNazvanieRuki(int rang) {
     return nazvania[rang];
 }
 
+static string nazvanieRangaDlyaFrazy(Rang r) {
+    switch (r) {
+        case DVA: return "двоек";
+        case TRI: return "троек";
+        case CHETYRE: return "четвёрок";
+        case PYAT: return "пятёрок";
+        case SHEST: return "шестёрок";
+        case SEM: return "семёрок";
+        case OSEM: return "восьмёрок";
+        case DEVYAT: return "девяток";
+        case DESYAT: return "десяток";
+        case VALET: return "валетов";
+        case DAMA: return "дам";
+        case KOROL: return "королей";
+        case TUZ: return "тузов";
+        default: return "";
+    }
+}
+
+static string nazvanieStarshiyRang(Rang r) {
+    switch (r) {
+        case DVA: return "двойка";
+        case TRI: return "тройка";
+        case CHETYRE: return "четвёрка";
+        case PYAT: return "пятёрка";
+        case SHEST: return "шестёрка";
+        case SEM: return "семёрка";
+        case OSEM: return "восьмёрка";
+        case DEVYAT: return "девятка";
+        case DESYAT: return "десятка";
+        case VALET: return "валет";
+        case DAMA: return "дама";
+        case KOROL: return "король";
+        case TUZ: return "туз";
+        default: return "";
+    }
+}
+
+string opisatRuku(const OcenkaRuki& hand) {
+    switch (hand.rang) {
+        case 0:
+            if (!hand.kickers.empty())
+                return "Старшая карта " + nazvanieStarshiyRang(hand.kickers[0]);
+            return "Старшая карта";
+        case 1:
+            if (!hand.kickers.empty())
+                return "Пара " + nazvanieRangaDlyaFrazy(hand.kickers[0]);
+            return "Пара";
+        case 2:
+            if (hand.kickers.size() >= 2)
+                return "Две пары: " + nazvanieRangaDlyaFrazy(hand.kickers[0]) +
+                       " и " + nazvanieRangaDlyaFrazy(hand.kickers[1]);
+            return "Две пары";
+        case 3:
+            if (!hand.kickers.empty())
+                return "Тройка " + nazvanieRangaDlyaFrazy(hand.kickers[0]);
+            return "Тройка";
+        case 4:
+            if (!hand.kickers.empty())
+                return "Стрит до " + nazvanieStarshiyRang(hand.kickers[0]);
+            return "Стрит";
+        case 5:
+            return "Флеш";
+        case 6:
+            return "Фулл-хаус";
+        case 7:
+            if (!hand.kickers.empty())
+                return "Каре " + nazvanieRangaDlyaFrazy(hand.kickers[0]);
+            return "Каре";
+        case 8:
+            if (!hand.kickers.empty())
+                return "Стрит-флеш до " + nazvanieStarshiyRang(hand.kickers[0]);
+            return "Стрит-флеш";
+        default:
+            return "Неизвестная комбинация";
+    }
+}
+
 OcenkaRuki oceniRuku(vector<Karta> allCards) {
     sort(allCards.begin(), allCards.end(), [](const Karta& a, const Karta& b) {
         return a.rang > b.rang;

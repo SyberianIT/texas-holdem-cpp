@@ -13,6 +13,7 @@ struct OcenkaRuki {
 };
 
 string poluchitNazvanieRuki(int rang);
+string opisatRuku(const OcenkaRuki& hand);
 OcenkaRuki oceniRuku(vector<Karta> allCards);
 
 #endif

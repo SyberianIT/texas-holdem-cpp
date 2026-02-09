@@ -5,6 +5,13 @@
 #include <vector>
 #include <string>
 
+enum class TipIgorka {
+    Chelovek,
+    BotPassivnyi,
+    BotSrednii,
+    BotAggressivnyi
+};
+
 class Igrok {
 private:
     string imya;
@@ -12,9 +19,15 @@ private:
     int stavka;
     bool slozhilsya;
     vector<Karta> skrytieKarty;
+    TipIgorka tip;
+    int vyigrannoRuk;
+    int proigrannoRuk;
+    int posledniyResultat; // изменение фишек за последнюю раздачу
+    int vsegoRuk;
+    long long obshayaStavka; // суммарно вложено фишек во все раздачи
 
 public:
-    Igrok(string name, int nachalnieFishi);
+    Igrok(string name, int nachalnieFishi, TipIgorka tipIgorka = TipIgorka::Chelovek);
     
     void dobavitKarty(Karta karta);
     void ochistiRuku();
@@ -28,6 +41,17 @@ public:
     void resetStavka();
     bool isSlozhilsya() const;
     void slozhis();
+    TipIgorka getTip() const;
+    bool isChelovek() const;
+    void sbrositResultatRuki();
+    void zapisatResultatRuki(int deltaFishi);
+    int getPosledniyResultat() const;
+    int getVyigrannoRuk() const;
+    int getProigrannoRuk() const;
+    void uvelichitRuki();
+    void dobavitKStavkeStatistiki(int amount);
+    int getVsegoRuk() const;
+    long long getObshayaStavka() const;
     void showSkrytieKarty() const;
     void showFishi() const;
 };
